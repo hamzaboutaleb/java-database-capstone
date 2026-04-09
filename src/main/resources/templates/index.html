@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Clinic - Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Smart Clinic</h1>
+            <p class="subtitle">Sign in to access your dashboard</p>
+
+            <div id="loginAlert" class="alert"></div>
+
+            <!-- Role Selector -->
+            <div class="role-selector">
+                <button type="button" class="role-btn active" data-role="doctor">Doctor</button>
+                <button type="button" class="role-btn" data-role="admin">Admin</button>
+            </div>
+
+            <form id="loginForm">
+                <input type="hidden" id="selectedRole" value="doctor" />
+
+                <!-- Doctor: Email -->
+                <div class="form-group" id="emailGroup">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="doctor@example.com" />
+                </div>
+
+                <!-- Admin: Username -->
+                <div class="form-group" id="usernameGroup" style="display: none;">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="admin" />
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <script th:src="@{/js/index.js}"></script>
+</body>
+</html>

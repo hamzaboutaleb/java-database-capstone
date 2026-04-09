@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Smart Clinic</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminDashboard.css}" />
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Header -->
+        <div id="dashboardHeader"></div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">Total Doctors</div>
+                    <div class="stat-value" id="totalDoctors">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Specialties</div>
+                    <div class="stat-value" id="totalSpecialties">0</div>
+                </div>
+            </div>
+
+            <!-- Toolbar: Search, Filters, Add Button -->
+            <h2>Manage Doctors</h2>
+            <div class="toolbar">
+                <input type="text"
+                       id="doctorSearch"
+                       class="search-input"
+                       placeholder="Search doctors by name..." />
+
+                <select id="specialtyFilter" class="filter-select">
+                    <option value="">All Specialties</option>
+                </select>
+
+                <select id="timeFilter" class="filter-select">
+                    <option value="">All Times</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                </select>
+
+                <button class="btn btn-primary" onclick="openModal('addDoctorModal')">
+                    + Add Doctor
+                </button>
+            </div>
+
+            <!-- Doctor Grid -->
+            <div class="doctor-grid" id="doctorGrid">
+                <p class="no-results">Loading doctors...</p>
+            </div>
+        </div>
+
+        <!-- Add Doctor Modal -->
+        <div class="modal-overlay" id="addDoctorModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Add New Doctor</h2>
+                    <button class="modal-close" onclick="closeModal('addDoctorModal')">&times;</button>
+                </div>
+                <form id="addDoctorForm" class="add-doctor-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newDoctorName">Full Name</label>
+                            <input type="text" id="newDoctorName" required placeholder="Dr. Jane Smith" />
+                        </div>
+                        <div class="form-group">
+                            <label for="newDoctorSpecialty">Specialty</label>
+                            <input type="text" id="newDoctorSpecialty" required placeholder="Cardiology" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newDoctorEmail">Email</label>
+                            <input type="email" id="newDoctorEmail" required placeholder="doctor@example.com" />
+                        </div>
+                        <div class="form-group">
+                            <label for="newDoctorPhone">Phone (10 digits)</label>
+                            <input type="text" id="newDoctorPhone" required pattern="\d{10}" placeholder="5551234567" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newDoctorPassword">Password</label>
+                        <input type="password" id="newDoctorPassword" required minlength="6" placeholder="Min 6 characters" />
+                    </div>
+                    <div class="form-group">
+                        <label for="newDoctorTimes">Available Times (comma-separated)</label>
+                        <input type="text" id="newDoctorTimes" placeholder="09:00-10:00, 14:00-15:00" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Add Doctor</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/components/header.js}"></script>
+    <script th:src="@{/js/components/doctorCard.js}"></script>
+    <script th:src="@{/js/components/modal.js}"></script>
+    <script th:src="@{/js/services/doctorService.js}"></script>
+    <script th:src="@{/js/adminDashboard.js}"></script>
+</body>
+</html>
