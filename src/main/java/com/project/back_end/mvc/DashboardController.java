@@ -47,4 +47,20 @@ public class DashboardController {
         model.addAttribute("doctorId", doctorId);
         return "doctor/doctorDashboard";
     }
+
+    @GetMapping("/patient/dashboard")
+    public String patientDashboardRedirect() {
+        return "redirect:/";
+    }
+
+    @GetMapping("/patientDashboard/{token}")
+    public String patientDashboard(@PathVariable String token, Model model) {
+        if (!tokenService.validateTokenForRole(token, "patient")) {
+            return "redirect:/";
+        }
+        Long patientId = tokenService.getPatientId(token);
+        model.addAttribute("token", token);
+        model.addAttribute("patientId", patientId);
+        return "patient/patientDashboard";
+    }
 }

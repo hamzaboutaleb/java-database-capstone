@@ -2,11 +2,16 @@
 // doctorService.js - Doctor CRUD & Search Operations
 // =============================================
 
+function tokenParam(prefix) {
+    const t = getToken();
+    return t ? `${prefix}token=${t}` : '';
+}
+
 const DoctorService = {
 
     // Fetch all doctors
     async getAll() {
-        const response = await fetch(`${API_BASE}/doctors`, {
+        const response = await fetch(`${API_BASE}/doctors?${tokenParam('')}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Failed to fetch doctors');
@@ -15,7 +20,7 @@ const DoctorService = {
 
     // Fetch a single doctor by ID
     async getById(id) {
-        const response = await fetch(`${API_BASE}/doctors/${id}`, {
+        const response = await fetch(`${API_BASE}/doctors/${id}?${tokenParam('')}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Doctor not found');
@@ -24,16 +29,16 @@ const DoctorService = {
 
     // Search doctors by name
     async searchByName(name) {
-        const response = await fetch(`${API_BASE}/doctors/search?name=${encodeURIComponent(name)}`, {
+        const response = await fetch(`${API_BASE}/doctors/search?name=${encodeURIComponent(name)}&${tokenParam('')}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Search failed');
         return response.json();
     },
 
-    // Filter doctors by specialty
+    // Filter doctors by specialty and/or time
     async filterBySpecialty(specialty) {
-        const response = await fetch(`${API_BASE}/doctors/filter?specialty=${encodeURIComponent(specialty)}`, {
+        const response = await fetch(`${API_BASE}/doctors/filter?specialty=${encodeURIComponent(specialty)}&${tokenParam('')}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Filter failed');
@@ -42,16 +47,16 @@ const DoctorService = {
 
     // Filter doctors by available time
     async filterByTime(time) {
-        const response = await fetch(`${API_BASE}/doctors/filter?time=${encodeURIComponent(time)}`, {
+        const response = await fetch(`${API_BASE}/doctors/filter?time=${encodeURIComponent(time)}&${tokenParam('')}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Filter failed');
         return response.json();
     },
 
-    // Add a new doctor
+    // Add a new doctor (admin only)
     async create(doctorData) {
-        const response = await fetch(`${API_BASE}/doctors`, {
+        const response = await fetch(`${API_BASE}/doctors?${tokenParam('')}`, {
             method: 'POST',
             headers: getAuthHeaders(),
             body: JSON.stringify(doctorData)
@@ -63,9 +68,9 @@ const DoctorService = {
         return response.json();
     },
 
-    // Delete a doctor by ID
+    // Delete a doctor by ID (admin only)
     async delete(id) {
-        const response = await fetch(`${API_BASE}/doctors/${id}`, {
+        const response = await fetch(`${API_BASE}/doctors/${id}?${tokenParam('')}`, {
             method: 'DELETE',
             headers: getAuthHeaders()
         });
@@ -75,12 +80,24 @@ const DoctorService = {
 
     // Get doctor's appointments
     async getAppointments(doctorId, date) {
-        let url = `${API_BASE}/doctors/${doctorId}/appointments`;
-        if (date) url += `?date=${date}`;
+        let url = `${API_BASE}/doctors/${doctorId}/appointments?${tokenParam('')}`;
+        if (date) url += `&date=${date}`;
         const response = await fetch(url, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Failed to fetch appointments');
+        return response.json();
+    },
+
+    // Get doctor availability for a specific date
+    async getAvailability(doctorId, date) {
+        const role = getRole();
+        const token = getToken();
+        const response = await fetch(
+            `${API_BASE}/doctors/${doctorId}/availability/${date}?user=${role}&token=${token}`, {
+            headers: getAuthHeaders()
+        });
+        if (!response.ok) throw new Error('Failed to fetch availability');
         return response.json();
     },
 

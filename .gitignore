@@ -33,9 +33,7 @@ build/
 .vscode/
 
 ### Maven ###
-.mvn/
-mvnw
-mvnw.cmd
+# Keep mvnw and .mvn/wrapper for CI builds
 
 ### OS ###
 .DS_Store
@@ -45,3 +43,5 @@ Thumbs.db
 *.env
 
 docker-compose.yml
+
+SUBMISSION.md

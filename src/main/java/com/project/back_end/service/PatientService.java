@@ -1,5 +1,6 @@
 package com.project.back_end.service;
 
+import com.project.back_end.dto.LoginDTO;
 import com.project.back_end.models.Patient;
 import com.project.back_end.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,21 @@ public class PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private TokenService tokenService;
+
+    public String login(LoginDTO loginDTO) {
+        Optional<Patient> patient = patientRepository.findByEmailAndPassword(
+                loginDTO.getEmail(), loginDTO.getPassword());
+
+        if (patient.isEmpty()) {
+            return null;
+        }
+
+        return tokenService.generateToken(
+                patient.get().getEmail(), "patient", patient.get().getId());
+    }
 
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();

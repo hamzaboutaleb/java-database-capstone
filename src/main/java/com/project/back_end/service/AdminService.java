@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class AdminService {
@@ -26,9 +25,7 @@ public class AdminService {
             return null;
         }
 
-        String token = UUID.randomUUID().toString();
-        tokenService.storeToken(token, "admin");
-        return token;
+        return tokenService.generateToken(admin.get().getUsername(), "admin");
     }
 
     public Optional<Admin> findByUsername(String username) {

@@ -48,6 +48,8 @@ function redirectToDashboard() {
         window.location.href = '/adminDashboard/' + token;
     } else if (role === 'doctor') {
         window.location.href = '/doctorDashboard/' + token;
+    } else if (role === 'patient') {
+        window.location.href = '/patientDashboard/' + token;
     }
 }
 
@@ -106,9 +108,13 @@ async function handleLogin(event) {
         const username = document.getElementById('username')?.value;
         endpoint = `${API_BASE}/admin/login`;
         body = { username, password };
-    } else {
+    } else if (role === 'doctor') {
         const email = document.getElementById('email')?.value;
         endpoint = `${API_BASE}/doctors/login`;
+        body = { email, password };
+    } else {
+        const email = document.getElementById('email')?.value;
+        endpoint = `${API_BASE}/patients/login`;
         body = { email, password };
     }
 

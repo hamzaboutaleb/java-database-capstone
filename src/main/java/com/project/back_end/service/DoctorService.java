@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class DoctorService {
@@ -27,9 +26,8 @@ public class DoctorService {
             return null;
         }
 
-        String token = UUID.randomUUID().toString();
-        tokenService.storeToken(token, "doctor", doctor.get().getId());
-        return token;
+        return tokenService.generateToken(
+                doctor.get().getEmail(), "doctor", doctor.get().getId());
     }
 
     public List<Doctor> getAllDoctors() {

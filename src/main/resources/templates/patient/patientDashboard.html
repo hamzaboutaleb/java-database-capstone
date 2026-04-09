@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard - Smart Clinic</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/patientDashboard.css}" />
+</head>
+<body>
+    <div class="patient-dashboard">
+        <!-- Header -->
+        <div id="dashboardHeader"></div>
+
+        <!-- Patient ID from controller -->
+        <input type="hidden" id="patientId" th:value="${patientId}" />
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Tabs -->
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="findDoctors">Find Doctors</button>
+                <button class="tab-btn" data-tab="myAppointments">My Appointments</button>
+            </div>
+
+            <!-- Tab: Find Doctors -->
+            <div class="tab-content active" id="findDoctors">
+                <h2>Find a Doctor</h2>
+                <div class="toolbar">
+                    <input type="text"
+                           id="doctorSearchPatient"
+                           class="search-input"
+                           placeholder="Search doctors by name..." />
+                </div>
+                <div class="doctor-grid" id="patientDoctorGrid">
+                    <p class="no-results">Loading doctors...</p>
+                </div>
+            </div>
+
+            <!-- Tab: My Appointments -->
+            <div class="tab-content" id="myAppointments">
+                <h2>My Appointments</h2>
+                <div class="appointment-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Specialty</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="myAppointmentsBody">
+                            <tr>
+                                <td colspan="5" class="no-results">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/components/header.js}"></script>
+    <script th:src="@{/js/components/doctorCard.js}"></script>
+    <script th:src="@{/js/components/modal.js}"></script>
+    <script th:src="@{/js/services/doctorService.js}"></script>
+    <script th:src="@{/js/services/patientService.js}"></script>
+    <script th:src="@{/js/patientDashboard.js}"></script>
+</body>
+</html>

@@ -24,7 +24,8 @@ const PatientService = {
 
     // Get prescriptions for a specific patient
     async getPrescriptions(patientName) {
-        const response = await fetch(`${API_BASE}/prescriptions?patientName=${encodeURIComponent(patientName)}`, {
+        const token = getToken();
+        const response = await fetch(`${API_BASE}/prescriptions/${token}?patientName=${encodeURIComponent(patientName)}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Failed to fetch prescriptions');
@@ -33,16 +34,18 @@ const PatientService = {
 
     // Get prescriptions by appointment ID
     async getPrescriptionsByAppointment(appointmentId) {
-        const response = await fetch(`${API_BASE}/prescriptions?appointmentId=${appointmentId}`, {
+        const token = getToken();
+        const response = await fetch(`${API_BASE}/prescriptions/${token}?appointmentId=${appointmentId}`, {
             headers: getAuthHeaders()
         });
         if (!response.ok) throw new Error('Failed to fetch prescriptions');
         return response.json();
     },
 
-    // Create a new prescription
+    // Create a new prescription (doctor only)
     async createPrescription(prescriptionData) {
-        const response = await fetch(`${API_BASE}/prescriptions`, {
+        const token = getToken();
+        const response = await fetch(`${API_BASE}/prescriptions/${token}`, {
             method: 'POST',
             headers: getAuthHeaders(),
             body: JSON.stringify(prescriptionData)

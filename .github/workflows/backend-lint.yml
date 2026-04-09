@@ -31,6 +31,9 @@ jobs:
   build:
     name: Maven Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
 
@@ -47,8 +50,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      - name: Compile with Maven
-        run: mvn compile -B -q
+      - name: Make Maven wrapper executable
+        run: chmod +x ./mvnw
 
-      - name: Package with Maven (skip tests)
-        run: mvn package -DskipTests -B -q
+      - name: Compile with Maven wrapper
+        run: cd ${{ github.workspace }} && ./mvnw compile -B -q
+
+      - name: Package with Maven wrapper (skip tests)
+        run: cd ${{ github.workspace }} && ./mvnw package -DskipTests -B -q

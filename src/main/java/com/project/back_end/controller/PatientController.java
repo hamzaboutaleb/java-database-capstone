@@ -1,5 +1,6 @@
 package com.project.back_end.controller;
 
+import com.project.back_end.dto.LoginDTO;
 import com.project.back_end.models.Patient;
 import com.project.back_end.service.PatientService;
 import jakarta.validation.Valid;
@@ -8,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +20,22 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDTO loginDTO) {
+        String token = patientService.login(loginDTO);
+
+        if (token == null) {
+            Map<String, String> error = new HashMap<>();
+            error.put("message", "Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        response.put("role", "patient");
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping
     public ResponseEntity<List<Patient>> getAllPatients() {

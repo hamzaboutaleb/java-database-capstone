@@ -6,9 +6,8 @@ function renderHeader(role) {
     const header = document.getElementById('dashboardHeader');
     if (!header) return;
 
-    const navItems = role === 'admin'
-        ? '<span class="nav-title">Admin Dashboard</span>'
-        : '<span class="nav-title">Doctor Dashboard</span>';
+    const titles = { admin: 'Admin Dashboard', doctor: 'Doctor Dashboard', patient: 'Patient Dashboard' };
+    const navItems = `<span class="nav-title">${titles[role] || 'Dashboard'}</span>`;
 
     header.innerHTML = `
         <div class="header-bar">
