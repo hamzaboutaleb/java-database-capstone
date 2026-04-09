@@ -1,0 +1,131 @@
+/* =============================================
+   Doctor Dashboard Styles
+   ============================================= */
+
+.doctor-dashboard {
+    min-height: 100vh;
+    background: var(--gray-50);
+}
+
+.dashboard-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.dashboard-content h2 {
+    font-size: 22px;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+}
+
+/* Appointment Table */
+.appointment-table {
+    width: 100%;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.appointment-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.appointment-table th {
+    background: var(--gray-50);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.appointment-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.appointment-table tr:hover td {
+    background: var(--gray-50);
+}
+
+/* Status Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-scheduled {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge-completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+/* Prescription List in Modal */
+.prescription-list {
+    list-style: none;
+    padding: 0;
+}
+
+.prescription-item {
+    background: var(--gray-50);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--primary);
+}
+
+.prescription-item .med-name {
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+}
+
+.prescription-item .med-detail {
+    font-size: 13px;
+    color: var(--gray-500);
+}
+
+/* Date Filter */
+.date-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.date-filter input[type="date"] {
+    padding: 10px 14px;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-size: 14px;
+}
+
+.date-filter input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .appointment-table {
+        overflow-x: auto;
+    }
+
+    .appointment-table table {
+        min-width: 600px;
+    }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Dashboard - Smart Clinic</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/doctorDashboard.css}" />
+</head>
+<body>
+    <div class="doctor-dashboard">
+        <!-- Header -->
+        <div id="dashboardHeader"></div>
+
+        <!-- Doctor ID passed from controller -->
+        <input type="hidden" id="doctorId" th:value="${doctorId}" />
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <h2>My Appointments</h2>
+
+            <!-- Toolbar: Search and Date Filter -->
+            <div class="toolbar">
+                <input type="text"
+                       id="appointmentSearch"
+                       class="search-input"
+                       placeholder="Search by patient name..." />
+
+                <div class="date-filter">
+                    <label for="dateFilter">Date:</label>
+                    <input type="date" id="dateFilter" />
+                </div>
+            </div>
+
+            <!-- Appointment Table -->
+            <div class="appointment-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentTableBody">
+                        <tr>
+                            <td colspan="6" class="no-results">Loading appointments...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/components/header.js}"></script>
+    <script th:src="@{/js/components/modal.js}"></script>
+    <script th:src="@{/js/services/doctorService.js}"></script>
+    <script th:src="@{/js/services/patientService.js}"></script>
+    <script th:src="@{/js/doctorDashboard.js}"></script>
+</body>
+</html>
