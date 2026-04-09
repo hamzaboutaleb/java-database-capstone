@@ -41,11 +41,13 @@ function isLoggedIn() {
 }
 
 function redirectToDashboard() {
+    const token = getToken();
     const role = getRole();
+    if (!token) return;
     if (role === 'admin') {
-        window.location.href = '/admin/dashboard';
+        window.location.href = '/adminDashboard/' + token;
     } else if (role === 'doctor') {
-        window.location.href = '/doctor/dashboard';
+        window.location.href = '/doctorDashboard/' + token;
     }
 }
 
