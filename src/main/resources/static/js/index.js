@@ -108,7 +108,7 @@ async function handleLogin(event) {
         body = { username, password };
     } else {
         const email = document.getElementById('email')?.value;
-        endpoint = `${API_BASE}/doctor/login`;
+        endpoint = `${API_BASE}/doctors/login`;
         body = { email, password };
     }
 
