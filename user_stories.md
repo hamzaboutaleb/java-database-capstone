@@ -65,3 +65,4 @@ As a doctor, I want to mark appointments as completed or cancelled so that my sc
 
 **US-20: Update My Profile**
 As a doctor, I want to update my professional details and contact information so that patients and admins have accurate records.
+
